@@ -25,13 +25,32 @@
 
 		</div>
 
-		<div>
-		
-			<div class="col-md-8 col-xs-12" style="background-color:red">
-				<p>
-					{{repoFactory.repo.id}}<br/>
-					{{repoFactory.repo.full_name}}				
-				</p>
+		<div class="col-md-8 col-xs-12">
+
+			<!-- List of comitters -->
+			<div ng-show="displayMode == 'comitters'" id="comitters-view">
+
+				<div ng-repeat="contributor in repoFactory.repoContributors" class="col-xs-12 col-md-3 single-comitter-block">
+
+					<!-- Gravatar picture -->
+					<div>
+						<img ng-src="{{contributor.avatar_url}}" class="img-responsive img-rounded" alt="{{contributor.login}} avatar">
+					</div>
+	
+					<!-- login -->
+					<div class="committer-name">
+						
+						<div>
+							<span ng-if="contributor.id == repoFactory.repo.owner.id" class="label label-primary">repo owner</span>
+						</div>
+						<div>
+							<a ng-href="{{contributor.html_url}}" target="_blank">{{contributor.login}}</a>
+						</div>
+
+					</div>
+
+				</div>
+
 			</div>
 
 		</div>

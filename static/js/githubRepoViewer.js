@@ -127,6 +127,9 @@
 		//We launch the repo viewing and computing process with url params
 		repoFactory.openRepo($routeParams.owner, $routeParams.repo);
 
+		//Setting the default data display 
+		$scope.displayMode = 'comitters';
+
 	}]);
 
 })();
