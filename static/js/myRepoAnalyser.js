@@ -69,6 +69,11 @@
 			//Launch the search 
 			submitForm : function(pageIndicator){
 
+				//Return if text input is empty
+				if(!this.pattern){
+					return;
+				}
+
 				//Reset url path
 				$location.url('/');
 
