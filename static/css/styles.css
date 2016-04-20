@@ -1,3 +1,11 @@
+#search-bar-block{
+	margin-top:2rem;
+}
+
+#github-viewer-block{
+	margin-top:6rem;
+}
+
 /**
  * the three dots for too long repos descriptions
  */
@@ -5,4 +13,15 @@
 	white-space : nowrap;
 	overflow : hidden;
 	text-overflow : ellipsis;
+}
+
+.committer-name{
+	text-align:center;
+	white-space : nowrap;
+	overflow : hidden;
+	text-overflow : ellipsis;
+}
+
+.single-comitter-block{
+	margin:3rem 0rem 3rem 0rem;
 }
