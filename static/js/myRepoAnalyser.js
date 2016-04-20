@@ -8,8 +8,12 @@
 	app.config(['$routeProvider',function($routeProvider){
 
 		$routeProvider.when('/repoviewer/:owner/:repo',{
+		
 			templateUrl : 'github-repo-viewer.html',
 			controller: 'githubRepoViewerController'
+		
+		}).otherwise({
+			redirectTo : '/'
 		});
 
 	}]);
@@ -38,7 +42,7 @@
 	});
 
 	//The factory which will handle searching through github and keep results in memory
-	app.factory('searchFactory', ['githubAPI', function(githubAPI){
+	app.factory('searchFactory', ['githubAPI', '$location', function(githubAPI, $location){
 
 		var searchFactory = {
 
@@ -64,6 +68,9 @@
 
 			//Launch the search 
 			submitForm : function(pageIndicator){
+
+				//Reset url path
+				$location.url('/');
 
 				//in case the result list has been previously disabled
 				searchFactory.setHidden(false);
