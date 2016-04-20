@@ -16,6 +16,12 @@
 		//the github repositories resource
 		this.repositories = $resource(this.rootUrl + 'search/repositories');
 
+		//the github specific repo resource
+		this.repository = $resource(this.rootUrl + 'repos/:owner/:repo', {
+			ower : '@owner',
+			repo : '@repo'
+		});
+
 		//the repository contributors resource 
 		this.repoContributors = $resource(this.rootUrl + 'repos/:owner/:repo/contributors', {
 			owner : '@owner',
@@ -56,6 +62,23 @@
 			return githubResources.repositories.get({
 				q : searchPattern,
 				page : page
+			}).$promise;
+
+		};
+
+		/**
+		 * [getSingleRepository return a promise which will fetch a single repository description from github API with given repo name and owner]
+		 * 
+		 * @param  {[string]} 	repo 		 	[The repository name on github]
+		 * @param  {[string]} 	owner 			[The user name of the repo owner]
+		 * 
+		 * @return {[object]}    	          	[Promise of the result]
+		 */
+		this.getSingleRepository = function(repo, owner){
+
+			return githubResources.repository.get({
+				repo : repo,
+				owner : owner
 			}).$promise;
 
 		};

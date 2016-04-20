@@ -4,11 +4,12 @@
 
 	var app = angular.module('myRepoAnalyser', ['ngRoute', 'githubModule', 'githubRepoViewer']);
 
+	//Initializing route configuration for specific repo viewing
 	app.config(['$routeProvider',function($routeProvider){
 
-		$routeProvider.when('/repoviewer/:id',{
-			templateUrl : 'github-viewer.html',
-			controller: 'githubViewerController'
+		$routeProvider.when('/repoviewer/:owner/:repo',{
+			templateUrl : 'github-repo-viewer.html',
+			controller: 'githubRepoViewerController'
 		});
 
 	}]);

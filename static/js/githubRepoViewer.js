@@ -4,7 +4,6 @@
 
 	var app = angular.module('githubRepoViewer', []);
 
-
 	//The factory which will handle single repos details viewing 
 	app.factory('repoFactory', ['githubAPI', 'searchFactory', function(githubAPI, searchFactory){
 
@@ -22,33 +21,37 @@
 			//Will store the ranking per each users
 			commitsRanking : null,
 
-			//trigerred when a result is clicked
-			openRepo : function(repo){
+			//initialize all the data about a repo
+			openRepo : function(owner, repo){
 
-				this.repo = repo;
+				//We first fetch the repo definition from the github API
+				githubAPI.getSingleRepository(repo, owner).then(function(singleRepoResult){
 
-				console.log('repo:');
-				console.log(repo);
-				
-				//Hiding results of search to get a proper view
-				searchFactory.setHidden(true);
+					//Keep the repo definition in an attribute
+					this.repo = singleRepoResult;
 
-				//We fetch the contributors of the repo
-				githubAPI.getRepoContributors(this.repo).then(function(result){
-					//And save them in the factory
-					this.repoContributors = result;
+					//Hiding results of search to get a proper view
+					searchFactory.setHidden(true);
+
+					//We now fetch the contributors of the repo
+					githubAPI.getRepoContributors(this.repo).then(function(repoContributorsResult){
+						//And save them in the factory
+						this.repoContributors = repoContributorsResult;
+					}.bind(this));
+
+					//And then fetch the last 100 commits of the repo
+					githubAPI.getLastCommits(this.repo).then(function(lastCommitsResult){
+						
+						//And save them in the factory
+						this.lastCommits = lastCommitsResult;
+
+						//We now compute ranking of committers
+						this.buildCommittersRanking();
+
+					}.bind(this));
+
 				}.bind(this));
 
-				//And then fetch the last 100 commits of the repo
-				githubAPI.getLastCommits(this.repo).then(function(result){
-					
-					//And save them in the factory
-					this.lastCommits = result;
-
-					//We now compute ranking of committers
-					this.buildCommittersRanking();
-
-				}.bind(this));
 
 			},
 
@@ -117,17 +120,13 @@
 	}]);
 
 	//githubRepoViewer controller definition
-	app.controller('githubRepoViewerController', ['$scope', 'repoFactory', function($scope, repoFactory){
-		$scope.repoFactory = repoFactory;
-	}]);
+	app.controller('githubRepoViewerController', ['$scope', '$routeParams', 'repoFactory', function($scope, $routeParams, repoFactory){
 
-	//Main view which'll list repo search result and display the single repo stat view
-	app.directive('githubRepoViewer', function(){
-		return{
-			restrict : 'E',
-			templateUrl : 'github-repo-viewer.html',
-			controller : 'githubRepoViewerController'
-		};
-	});
+		$scope.repoFactory = repoFactory;
+
+		//We launch the repo viewing and computing process with url params
+		repoFactory.openRepo($routeParams.owner, $routeParams.repo);
+
+	}]);
 
 })();

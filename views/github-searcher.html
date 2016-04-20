@@ -6,7 +6,7 @@
 
 			<div class="input-group">
 				<span class="input-group-addon">Github</span>
-				<input required ng-model="searchFactory.pattern" placeholder="Search github" class="form-control" type="text">
+				<input required ng-model="searchFactory.pattern" placeholder="Search repositories on github" class="form-control" type="text">
 			</div>
 
 		</div>
@@ -30,7 +30,7 @@
 
 		<div ng-repeat="result in searchFactory.results" class="row">
 
-			<a  ng-click="repoFactory.openRepo(result)" class="list-group-item col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-1" href="" target="_blank">
+			<a  class="list-group-item col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-1" ng-href="#/repoviewer/{{result.owner.login}}/{{result.name}}">
 				<h4 class="list-group-item-heading repos-text-block">{{result.full_name}}</h4>
 				<p class="list-group-item-text repos-text-block">
 					{{result.description || '-'}}
