@@ -1,35 +1,39 @@
-<!-- Single repos view -->
-<div ng-if="repoFactory.repo">
+<div id="github-viewer-block" class="col-md-12 col-xs-12">
 
-	<!-- Desktop nav -->
-	<div class="col-xs-12 hidden-md hidden-lg">
+	<!-- Single repos view -->
+	<div ng-if="repoFactory.repo">
 
-		<ul class="nav nav-pills nav-stacked">
-			<li role="presentation" class="active"><a href="#">Committers</a></li>
-			<li role="presentation"><a href="">Committers ranking</a></li>
-			<li role="presentation"><a href="">100 last commits</a></li>
-		</ul>
+		<!-- Desktop nav -->
+		<div class="col-xs-12 hidden-md hidden-lg">
 
-	</div>
-	
-	<!-- Mobile nav -->
-	<div class="col-md-2 hidden-xs hidden-sm">
+			<ul class="nav nav-pills nav-stacked">
+				<li role="presentation" class="active"><a href="#">Committers</a></li>
+				<li role="presentation"><a href="">Committers ranking</a></li>
+				<li role="presentation"><a href="">100 last commits</a></li>
+			</ul>
 
-		<ul class="nav nav-pills" role="tablist">
-			<li role="presentation" class="active"><a href="">Committers</a></li>
-			<li role="presentation"><a href="">Committers ranking</a></li>
-			<li role="presentation"><a href="">100 last commits</a></li>
-		</ul>
+		</div>
+		
+		<!-- Mobile nav -->
+		<div class="col-md-2 hidden-xs hidden-sm">
 
-	</div>
+			<ul class="nav nav-pills" role="tablist">
+				<li role="presentation" class="active"><a href="">Committers</a></li>
+				<li role="presentation"><a href="">Committers ranking</a></li>
+				<li role="presentation"><a href="">100 last commits</a></li>
+			</ul>
 
-	<div>
-	
-		<div class="col-md-8 col-xs-12" style="background-color:red">
-			<p>
-				{{repoFactory.repo.id}}<br/>
-				{{repoFactory.repo.full_name}}				
-			</p>
+		</div>
+
+		<div>
+		
+			<div class="col-md-8 col-xs-12" style="background-color:red">
+				<p>
+					{{repoFactory.repo.id}}<br/>
+					{{repoFactory.repo.full_name}}				
+				</p>
+			</div>
+
 		</div>
 
 	</div>
