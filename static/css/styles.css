@@ -1,0 +1,8 @@
+/**
+ * the three dots for too long repos descriptions
+ */
+.repos-text-block{
+	white-space : nowrap;
+	overflow : hidden;
+	text-overflow : ellipsis;
+}
