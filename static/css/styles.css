@@ -44,6 +44,13 @@
 	margin:3rem 0rem 3rem 0rem;
 }
 
+.committer-img{
+	min-width:114px;
+	min-height:114px;
+	max-height:114px;
+	max-width:114px;
+}
+
 .clear-this{
 	clear:left;
 }

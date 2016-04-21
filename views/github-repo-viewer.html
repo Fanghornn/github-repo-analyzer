@@ -42,8 +42,8 @@
 				<div ng-repeat="contributor in repoFactory.repoContributors" ng-class="{'clear-this' : ( ( $index % 4 )  == 0 ) }" class="col-xs-12 col-md-3 single-comitter-block">
 
 					<!-- Gravatar picture -->
-					<div>
-						<img ng-src="{{contributor.avatar_url}}" class="img-responsive img-rounded" alt="{{contributor.login}} avatar">
+					<div >
+						<img ng-src="{{contributor.avatar_url}}" class="committer-img img-responsive img-rounded" alt="{{contributor.login}} avatar">
 					</div>
 	
 					<!-- login -->
