@@ -44,7 +44,6 @@
 					<!-- Gravatar picture -->
 					<div>
 						<img ng-src="{{contributor.avatar_url}}" class="img-responsive img-rounded" alt="{{contributor.login}} avatar">
-						<span ng-if="contributor.id == repoFactory.repo.owner.id" class="label label-primary">repo owner</span>
 					</div>
 	
 					<!-- login -->
@@ -52,6 +51,9 @@
 
 						<div>
 							<a ng-href="{{contributor.html_url}}" target="_blank">{{contributor.login}}</a>
+						</div>
+						<div>
+							<span ng-if="contributor.id == repoFactory.repo.owner.id" class="label label-primary">repo owner</span>
 						</div>
 
 					</div>
