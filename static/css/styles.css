@@ -1,9 +1,27 @@
+#main-title-block h1{
+	font-family: 'Coustard', serif;
+	margin:4rem 0rem 4rem 0rem;
+}
+
 #search-bar-block{
 	margin-top:2rem;
 }
 
-#github-viewer-block{
-	margin-top:6rem;
+#github-repo-list-block{
+	margin-top:5rem;
+}
+
+#repo-title-block h2{
+	font-family: 'Coustard', serif;
+	margin-bottom:5rem;
+}
+
+.repo-view-nav-desktop{
+	margin-top:3rem;
+}
+
+.search-result-single-block{
+	margin-bottom:1rem;
 }
 
 /**
@@ -24,4 +42,8 @@
 
 .single-comitter-block{
 	margin:3rem 0rem 3rem 0rem;
+}
+
+.clear-this{
+	clear:left;
 }

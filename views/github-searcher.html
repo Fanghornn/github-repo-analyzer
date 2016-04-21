@@ -28,13 +28,21 @@
 	<!-- List of repos -->
 	<div ng-show="!searchFactory.hidden" class="list-group">
 
-		<div ng-repeat="result in searchFactory.results" class="row">
+		<div ng-repeat="result in searchFactory.results" class="row search-result-single-block">
 
 			<a  class="list-group-item col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-1" ng-href="#/repoviewer/{{result.owner.login}}/{{result.name}}">
+				
+				<span class="badge">
+					{{result.stargazers_count}}
+					<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+				</span>
+				
 				<h4 class="list-group-item-heading repos-text-block">{{result.full_name}}</h4>
+				
 				<p class="list-group-item-text repos-text-block">
 					{{result.description || '-'}}
 				</p>
+
 			</a>
 
 		</div>

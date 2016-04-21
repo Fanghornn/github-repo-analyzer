@@ -1,21 +1,30 @@
 <div id="github-viewer-block" class="col-md-12 col-xs-12">
 
+
+	<div id="repo-title-block">
+
+		<div class="col-xs-12 col-md-12 text-center">
+			<h2>{{repoFactory.repo.full_name}}</h2>
+		</div>
+
+	</div>
+
 	<!-- Single repos view -->
 	<div ng-if="repoFactory.repo">
 
-		<!-- Desktop nav -->
-		<div class="col-xs-12 hidden-md hidden-lg">
+		<!-- Mobile nav -->
+		<div class="col-xs-12 hidden-md hidden-lg repo-view-nav-mobile">
 
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation" class="active"><a href="#">Committers</a></li>
-				<li role="presentation"><a href="">Committers ranking</a></li>
-				<li role="presentation"><a href="">100 last commits</a></li>
+				<li role="presentation" class="active text-center"><a href="#">Committers</a></li>
+				<li role="presentation" class="text-center"><a href="">Committers ranking</a></li>
+				<li role="presentation" class="text-center"><a href="">100 last commits</a></li>
 			</ul>
 
 		</div>
 		
-		<!-- Mobile nav -->
-		<div class="col-md-2 hidden-xs hidden-sm">
+		<!-- Desktop nav -->
+		<div class="col-md-2 hidden-xs hidden-sm repo-view-nav-desktop">
 
 			<ul class="nav nav-pills" role="tablist">
 				<li role="presentation" class="active"><a href="">Committers</a></li>
@@ -30,19 +39,17 @@
 			<!-- List of comitters -->
 			<div ng-show="displayMode == 'comitters'" id="comitters-view">
 
-				<div ng-repeat="contributor in repoFactory.repoContributors" class="col-xs-12 col-md-3 single-comitter-block">
+				<div ng-repeat="contributor in repoFactory.repoContributors" ng-class="{'clear-this' : ( ( $index % 4 )  == 0 ) }" class="col-xs-12 col-md-3 single-comitter-block">
 
 					<!-- Gravatar picture -->
 					<div>
 						<img ng-src="{{contributor.avatar_url}}" class="img-responsive img-rounded" alt="{{contributor.login}} avatar">
+						<span ng-if="contributor.id == repoFactory.repo.owner.id" class="label label-primary">repo owner</span>
 					</div>
 	
 					<!-- login -->
 					<div class="committer-name">
-						
-						<div>
-							<span ng-if="contributor.id == repoFactory.repo.owner.id" class="label label-primary">repo owner</span>
-						</div>
+
 						<div>
 							<a ng-href="{{contributor.html_url}}" target="_blank">{{contributor.login}}</a>
 						</div>
