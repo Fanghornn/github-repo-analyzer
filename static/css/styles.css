@@ -60,3 +60,35 @@
 .clear-this{
 	clear:left;
 }
+
+.committer-rank{
+	margin-top:.8rem;
+}
+
+.rank-logo{
+	margin-left:.6rem;
+}
+
+.rank{
+	margin-top:1rem;
+}
+
+.rank>span{
+	font-size:1.4rem;
+	color:black;
+}
+
+.rank-gold{
+	background-color:gold;
+	border-color:gold;
+}
+
+.rank-silver{
+	background-color:silver;
+	border-color:silver;
+}
+
+.rank-bronze{
+	background-color:#CC7F32;
+	border-color:#CC7F32;
+}

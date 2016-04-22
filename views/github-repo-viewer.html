@@ -16,9 +16,9 @@
 		<div class="col-xs-12 hidden-md hidden-lg repo-view-nav-mobile">
 
 			<ul class="nav nav-pills nav-stacked">
-				<li role="presentation" ng-class="{ 'active' : displayMode === 'committers'}" class="text-center"><a ng-click="displayMode = 'committers'" href="">Committers</a></li>
-				<li role="presentation" ng-class="{ 'active' : displayMode === 'ranking'}" class="text-center"><a ng-click="displayMode = 'ranking'" href="">Committers ranking</a></li>
-				<li role="presentation" ng-class="{ 'active' : displayMode === 'lastcommits'}" class="text-center"><a ng-click="displayMode = 'lastcommits'" href="">100 last commits</a></li>
+				<li role="presentation" ng-class="{ 'active' : displayMode === 'committers'}" class="text-center"><a ng-click="displayMode = 'committers'" ng-href="#/repoviewer/{{repoFactory.repo.owner.login}}/{{repoFactory.repo.name}}/committers">Committers</a></li>
+				<li role="presentation" ng-class="{ 'active' : displayMode === 'ranking'}" class="text-center"><a ng-click="displayMode = 'ranking'" ng-href="#/repoviewer/{{repoFactory.repo.owner.login}}/{{repoFactory.repo.name}}/ranking">Committers ranking</a></li>
+				<li role="presentation" ng-class="{ 'active' : displayMode === 'lastcommits'}" class="text-center"><a ng-click="displayMode = 'lastcommits'" ng-href="#/repoviewer/{{repoFactory.repo.owner.login}}/{{repoFactory.repo.name}}/lastcommits">100 last commits</a></li>
 			</ul>
 
 		</div>
@@ -27,18 +27,18 @@
 		<div class="col-md-2 hidden-xs hidden-sm repo-view-nav-desktop">
 
 			<ul class="nav nav-pills" role="tablist">
-				<li role="presentation" ng-class="{ 'active' : displayMode === 'committers'}"><a ng-click="displayMode = 'committers'" href="">Committers</a></li>
-				<li role="presentation" ng-class="{ 'active' : displayMode === 'ranking'}"><a ng-click="displayMode = 'ranking'"  href="">Committers ranking</a></li>
-				<li role="presentation" ng-class="{ 'active' : displayMode === 'lastcommits'}"><a ng-click="displayMode = 'lastcommits'" href="">100 last commits</a></li>
+				<li role="presentation" ng-class="{ 'active' : displayMode === 'committers'}"><a ng-click="displayMode = 'committers'" ng-href="#/repoviewer/{{repoFactory.repo.owner.login}}/{{repoFactory.repo.name}}/committers">Committers</a></li>
+				<li role="presentation" ng-class="{ 'active' : displayMode === 'ranking'}"><a ng-click="displayMode = 'ranking'"  ng-href="#/repoviewer/{{repoFactory.repo.owner.login}}/{{repoFactory.repo.name}}/ranking">Committers ranking</a></li>
+				<li role="presentation" ng-class="{ 'active' : displayMode === 'lastcommits'}"><a ng-click="displayMode = 'lastcommits'" ng-href="#/repoviewer/{{repoFactory.repo.owner.login}}/{{repoFactory.repo.name}}/lastcommits">100 last commits</a></li>
 			</ul>
 
 		</div>
 
 		<div class="col-md-8 col-xs-12">
 
-			<!-- List of comitters -->
-			<div ng-show="displayMode == 'committers'" id="comitters-view">
+			<div id="comitters-view">
 
+				<!-- List of comitters -->
 				<div ng-show="displayMode === 'committers'" ng-repeat="contributor in repoFactory.repoContributors" ng-class="{'clear-this' : ( ( $index % 4 )  == 0 ) }" class="col-xs-6 col-md-3 single-comitter-block">
 
 					<!-- Gravatar picture -->
@@ -60,11 +60,36 @@
 
 				</div>
 
-			</div>
+				<!-- Committers ranking -->
+				<div ng-show="displayMode === 'ranking'" ng-repeat="rank in repoFactory.commitsRanking" ng-class="{'clear-this' : ( ( $index % 4 )  == 0 ) }" class="col-xs-6 col-md-3 single-comitter-block">
 
-			<!-- Committers ranking -->
-			<div ng-show="displayMode == 'ranking'" id="comitters-view">
+					<!-- Gravatar picture -->
+					<div>
+						<img ng-src="{{rank.user.avatar_url}}" class="committer-img img-responsive img-rounded" alt="{{rank.user.login}} avatar">
+					</div>
 
+					<div class="committer-name committer-rank">
+
+						<!-- Commit counter -->
+						<div>
+							<span><b>{{rank.counter}}</b> commits</span>
+						</div>				
+
+						<!-- Name -->
+						<div>
+							<a ng-href="{{rank.user.html_url}}" target="_blank">{{rank.user.login}}</a>
+						</div>
+
+						<!-- badge with rank -->
+						<div ng-if="$index == 0 || $index == 1 || $index == 2" class="rank">
+							<span ng-class="{'rank-gold' : $index == 0, 'rank-silver' : $index == 1, 'rank-bronze' : $index == 2}" class="label">
+								{{ ( $index+1 ) }}<span class="rank-logo glyphicon glyphicon-king"></span>
+							</span>
+						</div>
+
+					</div>
+
+				</div>
 
 			</div>
 

@@ -12,6 +12,11 @@
 			templateUrl : 'github-repo-viewer.html',
 			controller: 'githubRepoViewerController'
 		
+		}).when('/repoviewer/:owner/:repo/:view', {
+
+			templateUrl : 'github-repo-viewer.html',
+			controller: 'githubRepoViewerController'
+
 		}).otherwise({
 			redirectTo : '/'
 		});

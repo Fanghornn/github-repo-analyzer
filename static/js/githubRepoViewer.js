@@ -120,15 +120,21 @@
 	}]);
 
 	//githubRepoViewer controller definition
-	app.controller('githubRepoViewerController', ['$scope', '$routeParams', 'repoFactory', function($scope, $routeParams, repoFactory){
+	app.controller('githubRepoViewerController', ['$scope', '$routeParams', 'repoFactory', '$location', function($scope, $routeParams, repoFactory, $location){
 
 		$scope.repoFactory = repoFactory;
 
 		//We launch the repo viewing and computing process with url params
 		repoFactory.openRepo($routeParams.owner, $routeParams.repo);
 
-		//Setting the default data display 
-		$scope.displayMode = 'committers';
+		//Setting data view 
+		if($routeParams.view && ($routeParams.view === 'committers' || $routeParams.view === 'ranking' || $routeParams.view === 'lastcommits') ){
+			$scope.displayMode = $routeParams.view;
+		}else{
+			//Default view
+			$scope.displayMode = 'committers';
+			$location.url( $location.url() + '/committers' );
+		}
 
 	}]);
 
