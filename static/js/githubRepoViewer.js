@@ -21,6 +21,9 @@
 			//Will store the ranking per each users
 			commitsRanking : null,
 
+			//navigation state
+			navChoice : null,
+
 			//initialize all the data about a repo
 			openRepo : function(owner, repo){
 
@@ -32,6 +35,9 @@
 
 					//Hiding results of search to get a proper view
 					searchFactory.setHidden(true);
+
+					//Default view is committers list
+					this.navChoice='committers';
 
 					//We now fetch the contributors of the repo
 					githubAPI.getRepoContributors(this.repo).then(function(repoContributorsResult){
