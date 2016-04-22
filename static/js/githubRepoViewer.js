@@ -21,9 +21,6 @@
 			//Will store the ranking per each users
 			commitsRanking : null,
 
-			//navigation state
-			navChoice : null,
-
 			//initialize all the data about a repo
 			openRepo : function(owner, repo){
 
