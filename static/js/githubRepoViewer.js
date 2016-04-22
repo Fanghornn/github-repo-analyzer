@@ -36,9 +36,6 @@
 					//Hiding results of search to get a proper view
 					searchFactory.setHidden(true);
 
-					//Default view is committers list
-					this.navChoice='committers';
-
 					//We now fetch the contributors of the repo
 					githubAPI.getRepoContributors(this.repo).then(function(repoContributorsResult){
 						//And save them in the factory
@@ -83,7 +80,7 @@
 							//We add him in our listObject
 							listObject[this.lastCommits[i].committer.id] = {
 								counter : 1,
-								name : this.lastCommits[i].committer.login
+								user : this.lastCommits[i].committer
 							};
 
 						}else{
@@ -134,7 +131,7 @@
 		repoFactory.openRepo($routeParams.owner, $routeParams.repo);
 
 		//Setting the default data display 
-		$scope.displayMode = 'comitters';
+		$scope.displayMode = 'committers';
 
 	}]);
 
