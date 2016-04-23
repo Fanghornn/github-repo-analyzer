@@ -28,6 +28,10 @@
 
 		var globalFactory = {
 
+			alertMsg : null,
+
+			alertLvl : null,
+
 			saveRepo : function(repo){
 				//Create repo object for his unique ID
 				window.localStorage.repositories[repo.id] = {
@@ -38,6 +42,31 @@
 			
 			addRepoData : function(repoId, key, data){
 				window.localStorage.repositories[repoId][key] = data;
+			},
+
+			/**
+			 * [displayAlert display an alert in the main view]
+			 * 
+			 * @param  {[string]} message 		[The message to display]
+			 * @param  {[string]} lvl     		['error || warning || notice']
+			 * 
+			 * @return {[undefined]}
+			 */
+			displayAlert : function(message, lvl){
+
+				this.alertMsg = message;
+				this.alertLvl = 'alert-' + lvl; 
+
+			},
+
+			/**
+			 * [discardAlert discard the alert hurr durr ]
+			 * 
+			 * @return {[undefined]}
+			 */
+			discardAlert : function(){
+				this.alertMsg = null;
+				this.alertLvl = null;
 			}
 
 		};

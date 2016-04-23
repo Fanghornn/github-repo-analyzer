@@ -35,6 +35,20 @@
 
 	<body ng-controller="myRepoAnalyserController">
 
+	<div id="alert-dialog">
+			
+		<div ng-if="globalFactory.alertMsg" id="global-alert" ng-class="globalFactory.alertLvl" class="alert alert-success alert-dismissible text-center" role="alert">
+				
+				<button type="button" class="close" ng-click="globalFactory.discardAlert()" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			
+			{{globalFactory.alertMsg}}
+		
+		</div>
+	
+	</div>
+
 		<div class="container">
 
 			<div id="main-title-block">
@@ -54,7 +68,8 @@
 		</div>
 
 		<!-- jQuery -->
-		<script type="text/javascript" src="components/jquery/dist/jquery.min.js"></script>		
+		<script type="text/javascript" src="components/jquery/dist/jquery.min.js"></script>
+
 		<!-- Bootstrap -->
 		<script type="text/javascript" src="components/bootstrap/dist/js/bootstrap.min.js"></script>
 
