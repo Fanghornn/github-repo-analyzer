@@ -5,7 +5,7 @@
 	var app = angular.module('githubRepoViewer', []);
 
 	//The factory which will handle single repos details viewing 
-	app.factory('repoFactory', ['githubAPI', 'searchFactory', 'globalFactory', function(githubAPI, searchFactory, globalFactory){
+	app.factory('repoFactory', ['githubAPI', 'globalFactory', function(githubAPI, globalFactory){
 
 		var repoFactory = {
 
@@ -34,12 +34,9 @@
 				
 				//We first fetch the repo definition from the github API
 				githubAPI.getSingleRepository(repo, owner).then(function(singleRepoResult){
-					console.log(singleRepoResult);
+
 					//Keep the repo definition in an attribute
 					this.repo = singleRepoResult;
-
-					//Hiding results of search to get a proper view
-					searchFactory.setHidden(true);
 
 					//We now fetch the contributors of the repo
 					githubAPI.getRepoContributors(this.repo).then(function(repoContributorsResult){
@@ -176,7 +173,7 @@
 	}]);
 
 	//githubRepoViewer controller definition
-	app.controller('githubRepoViewerController', ['$scope', '$routeParams', 'repoFactory', '$location', function($scope, $routeParams, repoFactory, $location){
+	app.controller('githubRepoViewerController', ['$scope', '$routeParams', 'repoFactory', '$location', 'searchFactory', function($scope, $routeParams, repoFactory, $location, searchFactory){
 
 		$scope.repoFactory = repoFactory;
 
@@ -184,11 +181,14 @@
 		var owner = $routeParams.owner;
 		var repo = $routeParams.repo;
 
+		//Hiding results of search to get a proper view
+		searchFactory.setHidden(true);
+
 		//If we don't already have fetched all the data for this repo
 		if( !(repoFactory.repo && repoFactory.repo.full_name === owner + '/' + repo) ){
 			//We launch the repo computing process with url params
 			repoFactory.openRepo(owner, repo);
-		}		
+		}
 
 		//Setting data view 
 		if($routeParams.view && ($routeParams.view === 'committers' || $routeParams.view === 'ranking' || $routeParams.view === 'lastcommits') ){
