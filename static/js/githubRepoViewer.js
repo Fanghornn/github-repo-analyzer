@@ -5,7 +5,7 @@
 	var app = angular.module('githubRepoViewer', []);
 
 	//The factory which will handle single repos details viewing 
-	app.factory('repoFactory', ['githubAPI', 'searchFactory', function(githubAPI, searchFactory){
+	app.factory('repoFactory', ['githubAPI', 'searchFactory', 'globalFactory', function(githubAPI, searchFactory, globalFactory){
 
 		var repoFactory = {
 
@@ -21,12 +21,20 @@
 			//Will store the ranking per each users
 			commitsRanking : null,
 
+			//Will store failed API access
+			failed : {},
+
 			//initialize all the data about a repo
 			openRepo : function(owner, repo){
 
+				//If an another repo has been browsed previously, we reset the factory memory
+				if(this.repo){
+					this.resetFootPrints();
+				}
+				
 				//We first fetch the repo definition from the github API
 				githubAPI.getSingleRepository(repo, owner).then(function(singleRepoResult){
-
+					console.log(singleRepoResult);
 					//Keep the repo definition in an attribute
 					this.repo = singleRepoResult;
 
@@ -35,8 +43,16 @@
 
 					//We now fetch the contributors of the repo
 					githubAPI.getRepoContributors(this.repo).then(function(repoContributorsResult){
+
 						//And save them in the factory
 						this.repoContributors = repoContributorsResult;
+
+					}.bind(this), function(http){
+
+						this.failed.committers = true;
+
+						this.handleError(http);
+
 					}.bind(this));
 
 					//And then fetch the last 100 commits of the repo
@@ -48,10 +64,21 @@
 						//We now compute ranking of committers
 						this.buildCommittersRanking();
 
+					}.bind(this), function(http){
+
+						this.failed.lastcommits = true;
+
+						this.handleError(http);
+
 					}.bind(this));
 
-				}.bind(this));
+				}.bind(this), function(http){
 
+					this.failed.repo = true;
+
+					this.handleError(http);
+
+				});
 
 			},
 
@@ -111,6 +138,35 @@
 				//We now have the ordered array in the factory for this repo
 				this.commitsRanking = listArray;
 
+			},
+
+			/**
+			 * [resetFootPrints reset factory attributes]
+			 * @return {[undefined]}
+			 */
+			resetFootPrints : function(){
+				this.repo = null;
+				this.repoContributors = null;
+				this.lastCommits = null;
+				this.commitsRanking = null;
+				this.failed = {};
+			},
+
+			/**
+			 * [handleError triggered when an http errors occurs in the promise]
+			 * 
+			 * @param  {[object]} http [$http helper from angulr]
+			 * @return {[undefined]}
+			 */
+			handleError : function(http){
+				
+				var errorMsg;
+				
+				//When error occurs (e.g forbidden repo access
+				if(http && http.data && http.data.message){
+					errorMsg = http.data.message;
+					globalFactory.displayAlert(errorMsg, 'danger');
+				}
 			}
 
 		};
@@ -124,8 +180,15 @@
 
 		$scope.repoFactory = repoFactory;
 
-		//We launch the repo viewing and computing process with url params
-		repoFactory.openRepo($routeParams.owner, $routeParams.repo);
+		//Fetching url params
+		var owner = $routeParams.owner;
+		var repo = $routeParams.repo;
+
+		//If we don't already have fetched all the data for this repo
+		if( !(repoFactory.repo && repoFactory.repo.full_name === owner + '/' + repo) ){
+			//We launch the repo computing process with url params
+			repoFactory.openRepo(owner, repo);
+		}		
 
 		//Setting data view 
 		if($routeParams.view && ($routeParams.view === 'committers' || $routeParams.view === 'ranking' || $routeParams.view === 'lastcommits') ){

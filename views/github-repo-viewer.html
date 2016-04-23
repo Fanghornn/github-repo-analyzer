@@ -38,6 +38,13 @@
 
 			<div id="committer-view">
 
+				<!-- In case there is an error -->
+				<div ng-if="repoFactory.failed[displayMode]" class="col-xs-12 col-md-12">
+					<div class="alert alert-danger text-center" role="alert">
+						<strong>Woops, looks like something went wrong :(</strong>
+					</div>
+				</div>
+
 				<!-- List of committers -->
 				<div ng-show="displayMode === 'committers'" ng-repeat="contributor in repoFactory.repoContributors" ng-class="{'clear-this' : ( ( $index % 4 )  == 0 ) }" class="col-xs-6 col-md-3 single-committer-block">
 
@@ -131,6 +138,16 @@
 
 			</div>
 
+		</div>
+
+	</div>
+
+	<div ng-if="repoFactory.failed.repo">
+	
+		<div ng-if="repoFactory.failed[displayMode]" class="col-xs-12 col-md-12">
+			<div class="alert alert-danger text-center" role="alert">
+				<a href="#" class="alert-link">Woops, looks like something went wrong :(</a>
+			</div>
 		</div>
 
 	</div>
