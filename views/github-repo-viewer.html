@@ -36,10 +36,10 @@
 
 		<div class="col-md-8 col-xs-12">
 
-			<div id="comitters-view">
+			<div id="committer-view">
 
-				<!-- List of comitters -->
-				<div ng-show="displayMode === 'committers'" ng-repeat="contributor in repoFactory.repoContributors" ng-class="{'clear-this' : ( ( $index % 4 )  == 0 ) }" class="col-xs-6 col-md-3 single-comitter-block">
+				<!-- List of committers -->
+				<div ng-show="displayMode === 'committers'" ng-repeat="contributor in repoFactory.repoContributors" ng-class="{'clear-this' : ( ( $index % 4 )  == 0 ) }" class="col-xs-6 col-md-3 single-committer-block">
 
 					<!-- Gravatar picture -->
 					<div>
@@ -61,7 +61,7 @@
 				</div>
 
 				<!-- Committers ranking -->
-				<div ng-show="displayMode === 'ranking'" ng-repeat="rank in repoFactory.commitsRanking" ng-class="{'clear-this' : ( ( $index % 4 )  == 0 ) }" class="col-xs-6 col-md-3 single-comitter-block">
+				<div ng-show="displayMode === 'ranking'" ng-repeat="rank in repoFactory.commitsRanking" ng-class="{'clear-this' : ( ( $index % 4 )  == 0 ) }" class="col-xs-6 col-md-3 single-committer-block">
 
 					<!-- Gravatar picture -->
 					<div>
@@ -86,6 +86,44 @@
 								{{ ( $index+1 ) }}<span class="rank-logo glyphicon glyphicon-king"></span>
 							</span>
 						</div>
+
+					</div>
+
+				</div>
+
+				<!-- Commits timeline -->
+				<div ng-show="displayMode === 'lastcommits'" class="list-group">
+
+					<div ng-repeat="commit in repoFactory.lastCommits">
+
+						<a ng-href="{{commit.html_url}}" target="_blank" class="col-xs-12 col-md-12 list-group-item">
+
+							<div>
+								
+								<!-- Gravatar picture -->
+								<div class="col-xs-2 col-md-2">
+									<img ng-src="{{commit.author ? commit.author.avatar_url : '/img/github-logo-anon.png'}}" class="committer-img-timeline img-responsive img-rounded" alt="{{commit.author.login}} avatar">
+								</div>
+
+								<div class="col-xs-10 col-md-10" >
+									
+									<div class="committer-timeline-content">
+										
+										<!-- Committer Name -->
+										<div>
+											<span><b>{{commit.author ? commit.author.login : 'Anonymous commit'}}</b></span>
+										</div>
+										<div>
+											<p>{{commit.commit.message}}</p>
+										</div>
+									
+									</div>
+
+								</div>
+	
+							</div>
+
+						</a>
 
 					</div>
 
