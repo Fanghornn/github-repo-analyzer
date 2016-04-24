@@ -9,6 +9,8 @@
 
 	function startServer(){
 
+		var PORT = process.argv[2] || '1337';
+
 		app = express();
 		app.disable('x-powered-by'); 
 		app.use(require('compression')());
@@ -23,9 +25,9 @@
 
 		setAppRoutes();
 
-		app.listen('1337');
+		app.listen(PORT);
 
-		console.log('\n Listening now on port 1337, you can now visit localhost:1337 \n');
+		console.log('\n Listening now on port ' + PORT +' \n');
 
 	}
 
