@@ -76,7 +76,7 @@
 		var searchFactory = {
 
 			//will keep the results returned from github API
-			results:[],
+			results:null,
 
 			//Linked with the text input value in the form
 			pattern : null,
@@ -105,9 +105,6 @@
 
 				//Reset url path
 				$location.url('/');
-
-				//in case the result list has been previously disabled
-				searchFactory.setHidden(false);
 
 				//Handling the page number wanted
 				if(!pageIndicator){
@@ -147,6 +144,10 @@
 					
 					//Storing result
 					this.results = result.items;
+
+
+					//in case the result list has been previously disabled
+					searchFactory.setHidden(false);
 					
 					//Computing last page if submitting from search bar
 					if(!pageIndicator){					

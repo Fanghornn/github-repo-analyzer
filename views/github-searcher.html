@@ -28,6 +28,14 @@
 	<!-- List of repos -->
 	<div ng-show="!searchFactory.hidden" class="list-group">
 
+		<div ng-if="searchFactory.results.length === 0" class="">
+
+			<div class="alert alert-info text-center" role="alert">
+				<strong>No repositories found for this search :(</strong>
+			</div>
+
+		</div>
+
 		<div ng-repeat="result in searchFactory.results" class="row search-result-single-block">
 
 			<a  class="list-group-item col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-1" ng-href="#/repoviewer/{{result.owner.login}}/{{result.name}}/committers">
