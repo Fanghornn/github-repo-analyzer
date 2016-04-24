@@ -176,6 +176,7 @@
 	app.controller('githubRepoViewerController', ['$scope', '$routeParams', 'repoFactory', '$location', 'searchFactory', function($scope, $routeParams, repoFactory, $location, searchFactory){
 
 		$scope.repoFactory = repoFactory;
+		$scope.displayMode = $routeParams.view;
 
 		//Fetching url params
 		var owner = $routeParams.owner;
@@ -188,15 +189,6 @@
 		if( !(repoFactory.repo && repoFactory.repo.full_name === owner + '/' + repo) ){
 			//We launch the repo computing process with url params
 			repoFactory.openRepo(owner, repo);
-		}
-
-		//Setting data view 
-		if($routeParams.view && ($routeParams.view === 'committers' || $routeParams.view === 'ranking' || $routeParams.view === 'lastcommits') ){
-			$scope.displayMode = $routeParams.view;
-		}else{
-			//Default view
-			$scope.displayMode = 'committers';
-			$location.url( $location.url() + '/committers' );
 		}
 
 	}]);

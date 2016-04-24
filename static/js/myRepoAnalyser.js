@@ -7,12 +7,7 @@
 	//Initializing route configuration for specific repo viewing
 	app.config(['$routeProvider',function($routeProvider){
 
-		$routeProvider.when('/repoviewer/:owner/:repo',{
-		
-			templateUrl : 'github-repo-viewer.html',
-			controller: 'githubRepoViewerController'
-		
-		}).when('/repoviewer/:owner/:repo/:view', {
+		$routeProvider.when('/repoviewer/:owner/:repo/:view', {
 
 			templateUrl : 'github-repo-viewer.html',
 			controller: 'githubRepoViewerController'
