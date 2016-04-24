@@ -134,7 +134,7 @@
 					}
 
 					//Reset previous search result before the new request
-					this.results = [];
+					this.results = null;
 
 
 				}
