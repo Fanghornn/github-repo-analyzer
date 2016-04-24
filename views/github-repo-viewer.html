@@ -101,15 +101,15 @@
 				<!-- Commits timeline -->
 				<div ng-show="displayMode === 'lastcommits'" class="list-group">
 
-					<div ng-repeat="commit in repoFactory.lastCommits">
+					<div ng-repeat="commitObject in repoFactory.lastCommits">
 
-						<a ng-href="{{commit.html_url}}" target="_blank" class="col-xs-12 col-md-12 list-group-item">
+						<a ng-href="{{commitObject.html_url}}" target="_blank" class="col-xs-12 col-md-12 list-group-item">
 
 							<div>
 								
 								<!-- Gravatar picture -->
 								<div class="col-xs-2 col-md-2">
-									<img ng-src="{{commit.author ? commit.author.avatar_url : '/img/github-logo-anon.png'}}" class="committer-img-timeline img-responsive img-rounded" alt="{{commit.author.login}} avatar">
+									<img ng-src="{{commitObject.author ? commitObject.author.avatar_url : '/img/github-logo-anon.png'}}" class="committer-img-timeline img-responsive img-rounded" alt="{{commitObject.author.login}} avatar">
 								</div>
 
 								<div class="col-xs-10 col-md-10" >
@@ -118,10 +118,13 @@
 										
 										<!-- Committer Name -->
 										<div>
-											<span><b>{{commit.author ? commit.author.login : 'Anonymous commit'}}</b></span>
+											<p><b>{{commitObject.author ? commitObject.author.login : 'Anonymous commit'}}</b></p>
 										</div>
 										<div>
-											<p>{{commit.commit.message}}</p>
+											<p>{{commitObject.commit.message}}</p>
+										</div>
+										<div>
+											<p><i>{{commitObject.commit.author.date | date : "On dd/MM/yyyy 'at' HH:mm"}}</i></p>
 										</div>
 									
 									</div>
