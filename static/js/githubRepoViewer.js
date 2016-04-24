@@ -21,6 +21,9 @@
 			//Will store the ranking per each users
 			commitsRanking : null,
 
+			//Will store forks of this repo sorted by stargazers_count DSC
+			forks : null,
+
 			//Will store failed API access
 			failed : {},
 
@@ -64,6 +67,19 @@
 					}.bind(this), function(http){
 
 						this.failed.lastcommits = true;
+
+						this.handleError(http);
+
+					}.bind(this));
+
+					//And we fetch the most stargazed forks of this repo
+					githubAPI.getForks(this.repo).then(function(repoForks){
+
+						this.forks = repoForks;
+
+					}.bind(this), function(http){
+
+						this.failed.forks = true;
 
 						this.handleError(http);
 
@@ -146,6 +162,7 @@
 				this.repoContributors = null;
 				this.lastCommits = null;
 				this.commitsRanking = null;
+				this.forks = null;
 				this.failed = {};
 			},
 

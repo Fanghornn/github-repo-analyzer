@@ -27,7 +27,7 @@
 			owner : '@owner',
 			repo : '@repo'
 		}, {
-			get : { method:'GET',isArray: true}
+			get : { method:'GET',isArray: true }
 		});
 
 		//the 100 last commits resource
@@ -36,7 +36,16 @@
 			repo : '@repo',
 			per_page : '100'
 		}, {
-			get : { method:'GET', isArray:true}
+			get : { method:'GET', isArray:true }
+		});
+
+		//Returns repos forked from the requested one
+		this.repoForks = $resource(this.rootUrl + 'repos/:owner/:repo/forks', {
+			owner : '@owner',
+			repo : '@repo',
+			sort : 'stargazers'
+		}, {
+			get : { method:'GET', isArray:true }
 		});
 
 	}]);
@@ -109,6 +118,22 @@
 		this.getLastCommits = function(repo){
 
 			return githubResources.lastCommits.get({
+				owner:repo.owner.login,
+				repo:repo.name
+			}).$promise;
+
+		};
+
+		/**
+		 * [getForks return a promise which will fetch the repos who are forked from one]
+		 * 
+		 * @param  {[object]}	 repo 		[repo informations]
+		 * 
+		 * @return {[promise]}       		[A promise of the result]
+		 */
+		this.getForks = function(repo){
+
+			return githubResources.repoForks.get({
 				owner:repo.owner.login,
 				repo:repo.name
 			}).$promise;
