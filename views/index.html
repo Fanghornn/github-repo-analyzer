@@ -35,19 +35,19 @@
 
 	<body ng-controller="myRepoAnalyserController">
 
-	<div id="alert-dialog">
-			
-		<div ng-if="globalFactory.alertMsg" id="global-alert" ng-class="globalFactory.alertLvl" class="alert alert-success alert-dismissible text-center" role="alert">
+		<div id="alert-dialog">
 				
-				<button type="button" class="close" ng-click="globalFactory.discardAlert()" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
+			<div ng-if="globalFactory.alertMsg" id="global-alert" ng-class="globalFactory.alertLvl" class="alert alert-success alert-dismissible text-center" role="alert">
+					
+					<button type="button" class="close" ng-click="globalFactory.discardAlert()" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				
+				{{globalFactory.alertMsg}}
 			
-			{{globalFactory.alertMsg}}
+			</div>
 		
 		</div>
-	
-	</div>
 
 		<div class="container">
 
